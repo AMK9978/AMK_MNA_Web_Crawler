@@ -2,6 +2,8 @@ import re
 import requests
 import os
 import queue
+from bs4 import BeautifulSoup
+import urllib.request
 
 
 class Queue_Object:
@@ -11,8 +13,30 @@ class Queue_Object:
         self.node = node
 
 
+# download an image of a given link and put it in a given path
+def dl_jpg(url, file_path, file_name):
+    full_path = file_path + file_name + '.jpg'
+    urllib.request.urlretrieve(url, full_path)
+
+
+# return a list of images link of a given link
+def getting_images_links(url):
+    # url = input('Enter a link to save its images:')
+    r = requests.get(url)
+    html_content = r.text
+
+    soup = BeautifulSoup(html_content, "html.parser")
+
+    images = []
+    for img in soup.findAll('img'):
+        images.append(img.get('src'))
+
+    return images
+
+
 def calc(link, counter, pre_path, pre_node):
     try:
+        images_link = []
         q = queue.Queue()
         if counter == given_level - 1:
             return
@@ -50,7 +74,8 @@ def calc(link, counter, pre_path, pre_node):
             Q = q.get()
             calc(Q.link, counter, Q.path, Q.node)
     except Exception as e:
-        print(str(e)+","+link)
+        print(str(e) + "," + link)
+
 
 d = {}  # hash table
 
@@ -61,3 +86,4 @@ given_level = int(input('please enter a level: ').strip())
 d["C:/1"] = given_link
 os.mkdir("C:/1")
 calc(given_link, 0, "C:/1", "1")
+
