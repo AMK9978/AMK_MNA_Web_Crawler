@@ -2,8 +2,7 @@ import re
 import requests
 import os
 import queue
-from bs4 import BeautifulSoup
-import urllib.request
+from Tree import Tree
 
 
 class Queue_Object:
@@ -13,30 +12,8 @@ class Queue_Object:
         self.node = node
 
 
-# download an image of a given link and put it in a given path
-def dl_jpg(url, file_path, file_name):
-    full_path = file_path + file_name + '.jpg'
-    urllib.request.urlretrieve(url, full_path)
-
-
-# return a list of images link of a given link
-def getting_images_links(url):
-    # url = input('Enter a link to save its images:')
-    r = requests.get(url)
-    html_content = r.text
-
-    soup = BeautifulSoup(html_content, "html.parser")
-
-    images = []
-    for img in soup.findAll('img'):
-        images.append(img.get('src'))
-
-    return images
-
-
 def calc(link, counter, pre_path, pre_node):
     try:
-        images_link = []
         q = queue.Queue()
         if counter == given_level - 1:
             return
@@ -61,6 +38,8 @@ def calc(link, counter, pre_path, pre_node):
                     List[i] = link + List[i]
             else:
                 List[i] = link + List[i]
+
+            Tree.links[List[i]] = link
             node = pre_node + "." + str(j)
             path = pre_path + "/" + node
             Q = Queue_Object(List[i], node, path)
@@ -69,6 +48,7 @@ def calc(link, counter, pre_path, pre_node):
             d[path] = List[i]
             os.mkdir(path)
             j += 1
+
         print("my List: %s" % str(List))
         while q.qsize() != 0:
             Q = q.get()
@@ -82,8 +62,12 @@ d = {}  # hash table
 counter = 0
 given_link = input('please input your line:').strip()
 given_level = int(input('please enter a level: ').strip())
-
 d["C:/1"] = given_link
 os.mkdir("C:/1")
+t = Tree()
 calc(given_link, 0, "C:/1", "1")
-
+for i in Tree.links:
+    l2 = t.get_children_of_Node(node=i)
+    print('children of node:'+i)
+    for j in l2:
+        print(j)
