@@ -3,9 +3,40 @@ import requests
 import os
 import queue
 from Tree import Tree
-import View
-import threading
+import urllib.request
+from bs4 import BeautifulSoup
+from pathlib import Path
 import shutil
+def dl_jpg(url, file_path, file_name):
+    full_path = file_path + "/" + str(file_name) + '.jpg'
+    print('full:'+full_path)
+    try:
+        urllib.request.urlretrieve(url, full_path)
+    except:
+        pass
+
+
+# return a list of images link of a given link
+def getting_images_links(url):
+    # url = input('Enter a link to save its images:')
+    r = requests.get(url)
+    html_content = r.text
+
+    soup = BeautifulSoup(html_content, "html.parser")
+
+    images = []
+    for img in soup.findAll('img'):
+        images.append(img.get('src'))
+    print(images)
+    for i in range(len(images)):
+        images[i] = 'http:' + images[i]
+
+    return images
+
+
+
+
+
 class Queue_Object:
     def __init__(self, link, node, path):
         self.link = link
@@ -48,17 +79,19 @@ def calc(link, counter, pre_path, pre_node):
             q.put(Q)
             d[path] = List[i]
             os.mkdir(path)
+            images = getting_images_links(List[i])
+            for n in range(len(images)):
+                dl_jpg(images[n], path, n)
             j += 1
-            '''TODO f = open(path,'w')
-                f.write....
-            '''
-        print("my List: %s" % str(List))
-        while q.qsize() != 0:
-            Q = q.get()
-            t = threading.Thread(target=calc,args=(Q.link,counter,Q.path,Q.node,))
-            t.join()
-    except Exception as e:
-        print(str(e) + "," + link)
+
+            print("my List: %s" % str(List))
+            while q.qsize() != 0:
+                Q = q.get()
+                calc(Q.link, counter, Q.path, Q.node)
+    except:
+        pass
+    # except Exception as e:
+    #     print(str(e) + "," + link)
 
 
 d = {}  # hash table
@@ -66,16 +99,16 @@ d = {}  # hash table
 counter = 0
 given_link = input('please input your line:').strip()
 given_level = int(input('please enter a level: ').strip())
-d["C:/1"] = given_link
-os.mkdir(os.getcwd() + "/1")
+path1 = os.getcwd() + "/1"
+fileName = Path("/1")
+# if fileName.exists():
+#     shutil.rmtree(path1)
+d[path1] = given_link
+os.mkdir(path1)
 t = Tree()
-calc(given_link, 0, os.getcwd() + "/1", "1")
-txt = ''
-for i in Tree.links:
-    l2 = t.get_children_of_Node(node=i)
-    txt += '<a href=\'' + i + '\'>'+i+'</a>''\n'
-    print('children of node:' + i)
-    for j in l2:
-        print(j)
-View.set_message(txt)
-View.open_page()
+calc(given_link, 0, path1, "1")
+# for i in Tree.links:
+#     l2 = t.get_children_of_Node(node=i)
+#     print('children of node:'+i)
+#     for j in l2:
+#         print(j)
