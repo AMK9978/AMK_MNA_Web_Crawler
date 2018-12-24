@@ -3,6 +3,7 @@ import requests
 import os
 import queue
 from Tree import Tree
+import View
 
 
 class Queue_Object:
@@ -48,7 +49,9 @@ def calc(link, counter, pre_path, pre_node):
             d[path] = List[i]
             os.mkdir(path)
             j += 1
-
+            '''TODO f = open(path,'w')
+                f.write....
+            '''
         print("my List: %s" % str(List))
         while q.qsize() != 0:
             Q = q.get()
@@ -63,11 +66,16 @@ counter = 0
 given_link = input('please input your line:').strip()
 given_level = int(input('please enter a level: ').strip())
 d["C:/1"] = given_link
-os.mkdir("C:/1")
+os.mkdir(os.getcwd() + "/1")
 t = Tree()
-calc(given_link, 0, "C:/1", "1")
+calc(given_link, 0, os.getcwd() + "/1", "1")
+txt = ''
 for i in Tree.links:
     l2 = t.get_children_of_Node(node=i)
-    print('children of node:'+i)
+    txt += '<a href=\'' + i + '\'>'+i+'</a>''\n'
+    print(txt)
+    print('children of node:' + i)
     for j in l2:
         print(j)
+View.set_message(txt)
+View.open_page()
