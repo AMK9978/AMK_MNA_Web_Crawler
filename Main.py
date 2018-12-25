@@ -7,9 +7,27 @@ import urllib.request
 from bs4 import BeautifulSoup
 from pathlib import Path
 import shutil
+import threading
+import View
+
+
+def save_web_page(url, file_path, file_name):
+    full_path = file_path + "/" + file_name
+    f = open(full_path + '.html', 'w', encoding='utf-8')
+    message = """<head></head>
+            <body><p>AMK_MNA Web crawler!</p>
+            <p>
+            """ + requests.get(url).text + """
+            </p>
+            </body>
+            </html>"""
+    f.write(message)
+    f.close()
+
+
 def dl_jpg(url, file_path, file_name):
     full_path = file_path + "/" + str(file_name) + '.jpg'
-    print('full:'+full_path)
+    print('full:' + full_path)
     try:
         urllib.request.urlretrieve(url, full_path)
     except:
@@ -32,9 +50,6 @@ def getting_images_links(url):
         images[i] = 'http:' + images[i]
 
     return images
-
-
-
 
 
 class Queue_Object:
@@ -79,36 +94,46 @@ def calc(link, counter, pre_path, pre_node):
             q.put(Q)
             d[path] = List[i]
             os.mkdir(path)
+
             images = getting_images_links(List[i])
             for n in range(len(images)):
                 dl_jpg(images[n], path, n)
+            save_web_page(Q.link, Q.path, 'hi')
             j += 1
 
             print("my List: %s" % str(List))
             while q.qsize() != 0:
                 Q = q.get()
-                calc(Q.link, counter, Q.path, Q.node)
-    except:
-        pass
+                threading.Thread(target=calc, args=(Q.link, counter, Q.path, Q.node,))
+
+    except Exception as e:
+        print(str(e) + "," + link)
     # except Exception as e:
     #     print(str(e) + "," + link)
 
 
 d = {}  # hash table
 
-counter = 0
-given_link = input('please input your line:').strip()
-given_level = int(input('please enter a level: ').strip())
 path1 = os.getcwd() + "/1"
-fileName = Path("/1")
-# if fileName.exists():
-#     shutil.rmtree(path1)
+fileName = Path(path1)
+if fileName.exists():
+    shutil.rmtree(path1)
+
+counter = 0
+given_link = input('please input your link:').strip()
+given_level = int(input('please enter a level: ').strip())
+
 d[path1] = given_link
 os.mkdir(path1)
+save_web_page(given_link, path1, 'hello')
 t = Tree()
 calc(given_link, 0, path1, "1")
-# for i in Tree.links:
-#     l2 = t.get_children_of_Node(node=i)
-#     print('children of node:'+i)
-#     for j in l2:
-#         print(j)
+txt = ''
+for i in Tree.links:
+    l2 = t.get_children_of_Node(node=i)
+    txt += '<a href=\'' + i + '\'>' + i + '</a>'+'\n'
+    print('children of node:' + i)
+    for j in l2:
+        print(j)
+View.set_message(txt)
+View.open_page()
