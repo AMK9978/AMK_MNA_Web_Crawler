@@ -6,7 +6,6 @@ class Tree:
 
     def get_children_of_Node(self, node):
         list = []
-        for key, value in Tree.links.items():
-            if value == node:
-                list.append(key)
+        if node in Tree.links.keys():
+            list = Tree.links[node]
         return list
