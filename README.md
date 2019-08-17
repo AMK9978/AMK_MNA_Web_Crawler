@@ -1,37 +1,46 @@
-## Welcome to GitHub Pages
+# AMK_MNA_Web_Crawler
+A web crawler system via python:)
 
-You can use the [editor on GitHub](https://github.com/AMK9978/AMK_MNA_Web_Crawler/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+## Screenshots
+<img align="center" src="https://github.com/AMK9978/AMK_MNA_Web_Crawler/blob/master/ScreenShots/web.JPG?raw=true." alt="Spire the Hare" title="ScreenShot1" width="900px">
 
-### Markdown
+<img align="center" src="https://github.com/AMK9978/AMK_MNA_Web_Crawler/blob/master/ScreenShots/web1.JPG?raw=true." alt="Spire the Hare" title="ScreenShot" width="900px">
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+<img align="center" src="https://github.com/AMK9978/AMK_MNA_Web_Crawler/blob/master/ScreenShots/web2.JPG?raw=true." alt="Spire the Hare" title="ScreenShot3" width="900px">
 
-```markdown
-Syntax highlighted code block
+## Quick Start
 
-# Header 1
-## Header 2
-### Header 3
+'''
+git clone https://github.com/AMK9978/AMK_MNA_Web_Crawler.git
+pip install requirements.txt
+py Main.py
+'''
+After that,you can enter your url and depth and then web crawler will gather links,images and js scripts via multithreading
+and finally represent them as a html file and also make its directories and save files there.
 
-- Bulleted
-- List
+## Built With
 
-1. Numbered
-2. List
+* Python 3
 
-**Bold** and _Italic_ and `Code` text
+## Contributing
 
-[Link](url) and ![Image](src)
-```
+* Ensure any install or build dependencies are removed before the end of the layer when doing a build.
+* Update the README.md with details of changes to the interface and anything else.
+* Increase the version numbers in any examples files and the README.md to the new version that this Pull Request would represent.
+* Your pull request will be checked and merged(If be verified).
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+## Authors
 
-### Jekyll Themes
+* **Amir Muhammad Karimi** - [AMK9978](https://github.com/amk9978)
+* **Mehrnoush Alipour** - [Mehrnoush504](https://github.com/mehrnoush504)
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/AMK9978/AMK_MNA_Web_Crawler/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+## License
 
-### Support or Contact
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
 
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+## Acknowledgments
+
+* Hat tip to anyone whose code was used
+* Inspiration
+* etc
