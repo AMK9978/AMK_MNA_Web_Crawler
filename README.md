@@ -11,11 +11,12 @@ A web crawler system via python:)
 
 ## Quick Start
 
-'''
+```
 git clone https://github.com/AMK9978/AMK_MNA_Web_Crawler.git
 pip install requirements.txt
 py Main.py
-'''
+```
+
 After that,you can enter your url and depth and then web crawler will gather links,images and js scripts via multithreading
 and finally represent them as a html file and also make its directories and save files there.
 
@@ -37,7 +38,7 @@ and finally represent them as a html file and also make its directories and save
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
+This project is licensed under the GPL v3 License - see the [LICENSE](LICENSE) file for details
 
 ## Acknowledgments
 
