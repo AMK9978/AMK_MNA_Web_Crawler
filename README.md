@@ -5,9 +5,9 @@ A web crawler system via python:)
 ## Screenshots
 <img align="center" src="https://github.com/AMK9978/AMK_MNA_Web_Crawler/blob/master/ScreenShots/web.JPG?raw=true." alt="Spire the Hare" title="ScreenShot1" width="900px">
 
-<img align="center" src="https://github.com/AMK9978/AMK_MNA_Web_Crawler/blob/master/ScreenShots/web1.JPG?raw=true." alt="Spire the Hare" title="ScreenShot" width="900px">
+<img align="center" src="https://github.com/AMK9978/AMK_MNA_Web_Crawler/blob/master/ScreenShots/web2.JPG?raw=true." alt="Spire the Hare" title="ScreenShot" width="900px">
 
-<img align="center" src="https://github.com/AMK9978/AMK_MNA_Web_Crawler/blob/master/ScreenShots/web2.JPG?raw=true." alt="Spire the Hare" title="ScreenShot3" width="900px">
+<img align="center" src="https://github.com/AMK9978/AMK_MNA_Web_Crawler/blob/master/ScreenShots/web3.JPG?raw=true." alt="Spire the Hare" title="ScreenShot3" width="900px">
 
 ## Quick Start
 
